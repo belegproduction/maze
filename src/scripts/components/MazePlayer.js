@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class MazePlayer extends React.Component {
+class MazePlayer extends React.PureComponent {
   componentWillMount() {
     this.props.create();
   }

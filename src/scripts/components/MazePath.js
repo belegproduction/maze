@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class MazePath extends React.Component {
+class MazePath extends React.PureComponent {
   render() {
     const { path } = this.props;
     const length = path.length;

@@ -36,7 +36,7 @@ class Maze extends React.Component {
     this.ws.onmessage = (response) => {
       const { createGrid, saveGrid, updateEnemies, player, enemies } = this.props;
       const { type, value } = JSON.parse(response.data);
-      
+      console.log(type, value);
       if (type === 'CONNECT') {
         if (value.grid) {
           saveGrid(value.grid);
@@ -69,6 +69,9 @@ class Maze extends React.Component {
           alert('Ксожалению, Вы проиграли!');
           location.reload();
         }
+      } else if (type === 'CLOSE') {
+        alert('Противник сбежал!');
+        location.reload();
       }
     };
   }

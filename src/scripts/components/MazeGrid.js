@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class MazeGrid extends React.Component {
+class MazeGrid extends React.PureComponent {
   render() {
     const grid = this.props.grid;
 

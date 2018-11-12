@@ -1,12 +1,11 @@
-let grid;
-const clients = [];
-const players = [];
+let grid = null;
+let clients = [];
+let players = [];
 
 
 module.exports = {
   async handler(ctx, next) {
     clients.push(ctx.websocket);
-    
     ctx.websocket.send(JSON.stringify({
       type: 'CONNECT',
       value: {
@@ -14,10 +13,22 @@ module.exports = {
         enemies: players,
       },
     }));
-    
+    ctx.websocket.on('close', () => {
+      console.log('websocket closed');
+      clients.forEach((client) => {
+        if (client.readyState !== ctx.websocket.CLOSED ) {
+          client.send(JSON.stringify({
+            type: 'CLOSE',
+          }));
+        }
+      });
+      grid = null;
+      clients = [];
+      players = [];
+    });
     ctx.websocket.on('message', (message) => {
       const payload = JSON.parse(message);
-      const type = payload.type.trim()
+      const type = payload.type.trim();
       if (payload.type && type === 'CREATE_GRID') {
         grid = payload.value.grid;
       }
@@ -39,6 +50,10 @@ module.exports = {
               },
             }));
           } else if (type === 'GAME_OVER') {
+            clients = [];
+            players = [];
+            grid = null;
+            
             client.send(JSON.stringify({
               type: 'GAME_OVER',
               value: {
