@@ -23,7 +23,6 @@ module.exports = {
       }
       clients.forEach((client) => {
         if (client.readyState !== ctx.websocket.CLOSED ) {
-          console.log(type);
           if (type === 'CREATE_PLAYER') {
             players.push(payload.value.player);
             client.send(JSON.stringify({

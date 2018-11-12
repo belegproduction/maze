@@ -23,7 +23,7 @@ class Maze extends React.Component {
   constructor() {
     super();
     this.canPlayerMove = true;
-    this.ws = new WebSocket(`ws://${location.host}/api/game`);
+    this.ws = new WebSocket(`${location.href.includes('https') ? 'wss' : 'ws'}://${location.host}/api/game`);
     
     this.ws.onopen = (response) => {
     
@@ -36,7 +36,7 @@ class Maze extends React.Component {
     this.ws.onmessage = (response) => {
       const { createGrid, saveGrid, updateEnemies, player, enemies } = this.props;
       const { type, value } = JSON.parse(response.data);
-      console.log(response, value);
+      
       if (type === 'CONNECT') {
         if (value.grid) {
           saveGrid(value.grid);

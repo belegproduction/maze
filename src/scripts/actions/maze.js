@@ -199,7 +199,7 @@ class Maze {
 
     let cell = grid[`${new_y}.${new_x}`];
 
-    console.log('Параметры', cell, obj.x, obj.y, new_x, new_y );
+    // console.log('Параметры', cell, obj.x, obj.y, new_x, new_y );
 
     // такой ячейки нету
     if (!cell) {
