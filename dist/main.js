@@ -440,7 +440,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return isPlainObject; });\n/**\r\n * @param {any} obj The object to inspect.\r\n * @returns {boolean} True if the argument appears to be a plain object.\r\n */\nfunction isPlainObject(obj) {\n  if (typeof obj !== 'object' || obj === null) return false;\n  var proto = obj;\n\n  while (Object.getPrototypeOf(proto) !== null) {\n    proto = Object.getPrototypeOf(proto);\n  }\n\n  return Object.getPrototypeOf(obj) === proto;\n}\n\n//# sourceURL=webpack:///./node_modules/react-redux/es/utils/isPlainObject.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return isPlainObject; });\n/**\r\n * @param {any} obj The object to inspect.\r\n * @returns {boolean} True if the argument appears to be a plain object.\r\n */\nfunction isPlainObject(obj) {\n  if (typeof obj !== 'object' || obj === null) return false;\n  var proto = Object.getPrototypeOf(obj);\n  if (proto === null) return true;\n  var baseProto = proto;\n\n  while (Object.getPrototypeOf(baseProto) !== null) {\n    baseProto = Object.getPrototypeOf(baseProto);\n  }\n\n  return proto === baseProto;\n}\n\n//# sourceURL=webpack:///./node_modules/react-redux/es/utils/isPlainObject.js?");
 
 /***/ }),
 
