@@ -1,0 +1,47 @@
+.maze {
+  background: rgb(27, 42, 62);
+
+  &--path {
+    & > line {
+      @include animation-name(fadeIn);
+      @include animation-duration(1000ms);
+      stroke: rgba(187,236,243, 1);
+    }
+  }
+  
+  &--border {
+    fill: #32517d;
+  }
+
+  &--exit {
+    stroke: white;
+    fill: white;
+  }
+
+  rect.player {
+    z-index: 200;
+    fill: white;
+    rx: 15px;
+    ry: 15px;
+    z-index: 50;
+    transition-property: x, y;
+    transition-duration: .3s;
+
+    &__enemy {
+      z-index: 100;
+      fill: darkred;
+      rx: 0;
+      ry: 0;
+    }
+  }
+
+}
+
+@include keyframes(fadeIn){
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
