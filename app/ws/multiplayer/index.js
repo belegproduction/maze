@@ -5,7 +5,7 @@ const checkUser = require('../../modules/users/handlers/checkUser');
 const router = new Router({prefix: '/game'});
 
 router.param('hash', async (hash, ctx, next) => {
-  ctx.state.mathHash = hash;
+  ctx.state.mazeHash = hash;
   await next();
 }).all('/:hash', checkUser(), multiplayerController.handler);
 

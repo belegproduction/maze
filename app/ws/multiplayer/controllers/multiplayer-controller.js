@@ -1,19 +1,17 @@
-let clients = {};
+global.clientsMaze = {};
 
 module.exports = {
   async handler(ctx, next) {
-    const mathHash = ctx.state.mathHash;
-    if (Array.isArray(clients[mathHash])) {
-      clients[mathHash].push(ctx.websocket);
+    const mazeHash = ctx.state.mazeHash;
+    if (Array.isArray(global.clientsMaze[mazeHash])) {
+      global.clientsMaze[mazeHash].push(ctx.websocket);
     } else {
-      clients[mathHash] = [ctx.websocket];
+      global.clientsMaze[mazeHash] = [ctx.websocket];
     }
-    
-    console.log(clients);
 
     ctx.websocket.on('close', () => {
       // console.log('websocket closed');
-      // clients.forEach((client) => {
+      // global.clientsMaze.forEach((client) => {
       //   if (client.readyState !== ctx.websocket.CLOSED ) {
       //     client.send(JSON.stringify({
       //       type: 'CLOSE',
@@ -21,14 +19,14 @@ module.exports = {
       //   }
       // });
       // grid = null;
-      // clients = [];
+      // global.clientsMaze = [];
       // players = [];
     });
     ctx.websocket.on('message', (message) => {
       const payload = JSON.parse(message);
       const type = payload.type.trim();
-      if (Array.isArray(clients[mathHash])) {
-        clients[mathHash].forEach((client) => {
+      if (Array.isArray(global.clientsMaze[mazeHash])) {
+        global.clientsMaze[mazeHash].forEach((client) => {
           if (client.readyState !== ctx.websocket.CLOSED ) {
             if (type === 'CREATE_PLAYER') {
               client.send(JSON.stringify({
@@ -45,7 +43,7 @@ module.exports = {
                 },
               }));
             } else if (type === 'GAME_OVER') {
-              delete clients[mathHash];
+              delete global.clientsMaze[mazeHash];
               client.send(JSON.stringify({
                 type: 'GAME_OVER',
                 value: {
@@ -56,7 +54,7 @@ module.exports = {
           }
         });
       } else {
-        throw new AppError({ status: 404, message: 'Math not found' });
+        throw new AppError({ status: 404, message: 'mazeHash not found' });
       }
     });
     await next();
