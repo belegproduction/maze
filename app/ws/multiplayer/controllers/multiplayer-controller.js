@@ -43,13 +43,13 @@ module.exports = {
                 },
               }));
             } else if (type === 'GAME_OVER') {
-              delete global.clientsMaze[mazeHash];
               client.send(JSON.stringify({
                 type: 'GAME_OVER',
                 value: {
                   userHash: payload.value.userHash,
                 },
               }));
+              client.close();
             }
           }
         });
