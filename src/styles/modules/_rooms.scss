@@ -1,0 +1,98 @@
+.rooms {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  width: 500px;
+  max-width: 100%;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.23);
+
+  &--title {
+    font-size: 30px;
+    text-align: center;
+    color: #FFF;
+    text-shadow: 7px 6px 12px #38495a;
+    opacity: .7;
+
+    &__sub {
+      font-size: 25px;
+    }
+  }
+
+  &--list {
+    margin: 30px 0;
+
+    &--item {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 20px;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+
+      & > span {
+        flex-basis: 25%;
+        flex-grow: 1;
+      }
+
+      &--color {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: $active-color-light;
+      }
+
+      &__header {
+        & > span {
+          font-weight: bold;
+        }
+      }
+
+      &__active {
+        & > span:first-child {
+          &:before {
+            content: '';
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: green;
+            margin-right: 10px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  &--add {
+
+    &--list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      &--item {
+        flex-basis: 60%;
+
+        & > .input {
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        &__size {
+          flex-basis: 35%;
+          max-width: 120px;
+        }
+
+        &__button {
+          margin-top: 20px;
+          flex-basis: 100%;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

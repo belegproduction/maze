@@ -8,7 +8,7 @@
       stroke: rgba(187,236,243, 1);
     }
   }
-  
+
   &--border {
     fill: #32517d;
   }
@@ -33,6 +33,13 @@
       rx: 0;
       ry: 0;
     }
+  }
+
+  .player--nickname {
+    transition-property: all;
+    transition-duration: .3s;
+    fill: $active-color-light;
+    font-size: 16px;
   }
 
 }

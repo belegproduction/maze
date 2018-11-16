@@ -20,3 +20,19 @@ strong {
 i {
   font-style: italic;
 }
+
+a {
+  @include transition(opacity .2s);
+  color: $active-color-light;
+  text-decoration: none;
+  text-shadow: 7px 6px 12px #38495a;
+  opacity: .7;
+
+  &:hover {
+    opacity: 1
+  }
+}
+
+.text-right {
+  text-align: right;
+}

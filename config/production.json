@@ -4,6 +4,6 @@
     "uri": "mongo-production"
   },
   "jwt": {
-    "secret": "summary-secret"
+    "secret": "maze-secret"
   }
 }

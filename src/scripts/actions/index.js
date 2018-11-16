@@ -4,37 +4,35 @@ import Player from './player';
 import setting from '../constants/index';
 
 
-export const saveGridAction = createAction('CREATE_GRID', (grid) => ({
-  grid,
+export const createMathAction = createAction('CREATE_MATH', (params) => ({
+  ...params,
 }));
 
 export const updateEnemiesAction = createAction('UPDATE_ENEMIES', (enemies) => ({
   enemies,
 }));
 
-export const createGridAction = ((ws) => {
-  return async (distpatch) => {
-    const grid = Maze.createGrid(
-      setting.maze.cellWidth,
-      setting.maze.cellHeight,
-      setting.maze.borderWidth,
-      setting.maze.scale,
-      setting.maze.cellCount
-    );
-  
-    ws.send(JSON.stringify({
-      type: 'CREATE_GRID',
-      value: {
-        grid
-      }
-    }));
-  
-    distpatch(saveGridAction(grid));
-  }
-});
+// export const createGridAction = ((ws) => {
+//   return async (distpatch) => {
+//     const grid = Maze.createGrid(
+//       setting.maze.cellWidth,
+//       setting.maze.cellHeight,
+//       setting.maze.borderWidth,
+//       setting.maze.scale,
+//       setting.maze.cellCount
+//     );
+//     ws.send(JSON.stringify({
+//       type: 'CREATE_GRID',
+//       value: {
+//         grid
+//       }
+//     }));
+//     distpatch(saveGridAction(grid));
+//   }
+// });
 
-export const createPlayerAction = createAction('CREATE_PLAYER', (ws) => {
-  const player = Player.create({
+export const createPlayerAction = createAction('CREATE_PLAYER', (ws, user) => {
+  const playerCoordinates = Player.create({
     x: setting.player.x,
     y: setting.player.y,
     width: setting.player.width,
@@ -42,6 +40,12 @@ export const createPlayerAction = createAction('CREATE_PLAYER', (ws) => {
     posX: setting.player.posX,
     posY: setting.player.posY,
   });
+  const player = {
+    hash: user.hash,
+    nickname: user.nickname,
+    color: user.color,
+    ...playerCoordinates,
+  };
   ws.send(JSON.stringify({
     type: 'CREATE_PLAYER',
     value: {
@@ -58,13 +62,13 @@ export const checkPosition = (obj, grid, moveX, moveY) => {
   return Maze.checkPosition(obj, grid, moveX, moveY);
 };
 
-export const movePlayer = createAction('GO_PLAYER', (obj, grid, moveX, moveY, ws) => {
+export const movePlayer = createAction('GO_PLAYER', (obj, grid, moveX, moveY, ws, hash) => {
   const cell = Maze.getCell(obj, grid, moveX, moveY);
   ws.send(JSON.stringify({
     type: 'GO_PLAYER',
     value: {
       player: {
-        id: obj.id,
+        hash,
         ...cell,
       },
     },

@@ -1,0 +1,29 @@
+.room {
+  &--title {
+    margin-bottom: 14px;
+    font-size: 30px;
+    color: $active-color-light;
+    text-shadow: 7px 6px 12px #38495a;
+  }
+
+  &--size {
+    padding-top: 14px;
+    border-top: 1px solid $active-color-light;
+    font-size: 18px;
+    color: $active-color-light;
+    text-shadow: 7px 6px 12px #38495a;
+  }
+
+  &--select {
+    padding: 10px;
+  }
+
+  .button__start {
+    float: right;
+  }
+
+  .checkbox {
+    width: 25px;
+    height: 25px;
+  }
+}

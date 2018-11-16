@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 class MazePlayer extends React.PureComponent {
-  componentWillMount() {
-    this.props.create();
-  }
-  render() {
-    const { posX, posY, width, height } = this.props.player;
 
+  render() {
+    const { posX, posY, width, height, color, nickname } = this.props.player;
+    if (!posX || !posY) {
+      return "";
+    }
     return (
-      <rect className="player"
-        x={ posX }
-        y={ posY }
-        width={ width }
-        height={ height }
-      />
+      <Fragment>
+        <rect className="player"
+          x={ posX }
+          y={ posY }
+          width={ width }
+          height={ height }
+          style={{fill: color}}
+        />
+        <text x={ posX }
+          y={ posY + height + height/2 }
+          className="player--nickname">{ nickname }</text>
+      </Fragment>
     );
   }
 }
 
 MazePlayer.propTypes = {
-  create: PropTypes.func.isRequired,
-  grid: PropTypes.object.isRequired,
   player: PropTypes.object.isRequired,
 };
 

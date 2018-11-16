@@ -15,3 +15,14 @@ export const getPath = createGetSelector(getPlayer, 'path');
 export const getGrid = createGetSelector(getMaze, 'grid');
 
 export const getEnemies = createGetSelector(getMaze, 'enemies');
+
+export const getMazeHash = createGetSelector(getMaze, 'mazeHash');
+
+export const getCurrentUser = createGetSelector((state) => (state), 'user');
+
+export const getCurrentRoomSelector = createGetSelector(getGeneral, 'room');
+
+export const getTypeOfForm = createGetSelector(getGeneral, 'typeForm');
+
+export const getRoomsSelector = createGetSelector(getGeneral, 'rooms');
+

@@ -2,12 +2,16 @@ import { fromJS, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 const initialState = fromJS({
-  enemies: List()
+  enemies: List(),
 });
 
 const maze = handleActions({
-  CREATE_GRID: (state, { payload: { grid }}) => (
-    state.set('grid', grid)
+  CREATE_MATH: (state, { payload: { grid, mazeHash, enemies }}) => (
+    state.merge({
+      grid,
+      mazeHash,
+      enemies,
+    })
   ),
   UPDATE_ENEMIES: (state, { payload: { enemies }}) => (
     state.set('enemies', enemies)

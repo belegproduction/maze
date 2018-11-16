@@ -1,0 +1,24 @@
+.button {
+  @include transition(opacity .2s);
+  padding: 10px 15px;
+  box-shadow: none;
+  border: 1px solid $active-color;
+  background: $active-color;
+  color: $active-color-light;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: .7;
+  text-shadow: 7px 6px 12px #38495a;
+  letter-spacing: 2px;
+
+  &:hover {
+    opacity: 1
+  }
+
+  &__disabled {
+    background-color: $main-color-light;
+    border-color: $main-color-light;
+    pointer-events: none;
+  }
+}

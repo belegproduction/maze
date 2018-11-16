@@ -1,0 +1,20 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 20px;
+  //background: white;
+
+  &--nickname {
+    font-size: 25px;
+    letter-spacing: 2px;
+    color: #FFF;
+    text-shadow: 7px 6px 12px #38495a;
+    opacity: .7;
+  }
+
+  .button {
+    margin-left: 30px;
+  }
+}
