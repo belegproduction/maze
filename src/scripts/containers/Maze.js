@@ -89,44 +89,41 @@ class Maze extends React.Component {
     };
   }
   handlerMoveOfUser(moveX, moveY){
-    const { player, grid:{ content }, user, handlerMove } = this.props;
-    console.log({
-      moveX,
-      moveY,
-    });
-    const check = checkPosition(
-        player,
-        content,
-        moveX,
-        moveY);
-    if (check) {
-      if (check == 'exit') {
-        this.ws.send(JSON.stringify({
-          type: 'GAME_OVER',
-          value: {
-            userHash: user.hash,
-          },
-        }));
-        alert('Это победа, Вы словно Тесей!');
-        location.reload();
-      }
-      handlerMove(
+    if (this.canPlayerMove) {
+      const { player, grid:{ content }, user, handlerMove } = this.props;
+      const check = checkPosition(
           player,
           content,
           moveX,
-          moveY, this.ws, user.hash);
-      this.canPlayerMove = false;
-      setTimeout(() => {
-        this._setScrollPosition();
-        this.canPlayerMove = true;
-      }, 230);
-      this._setScrollPosition();
+          moveY);
+      if (check) {
+        if (check == 'exit') {
+          this.ws.send(JSON.stringify({
+            type: 'GAME_OVER',
+            value: {
+              userHash: user.hash,
+            },
+          }));
+          alert('Это победа, Вы словно Тесей!');
+          location.reload();
+        }
+        handlerMove(
+            player,
+            content,
+            moveX,
+            moveY, this.ws, user.hash);
+        this.canPlayerMove = false;
+        setTimeout(() => {
+          this._setScrollPosition();
+          this.canPlayerMove = true;
+        }, 230);
+      }
     }
   }
 
   _handlerOnKeyDown() {
     document.addEventListener('keydown', (event) => {
-      if (36 < event.keyCode && 41 > event.keyCode && this.canPlayerMove) {
+      if (36 < event.keyCode && 41 > event.keyCode) {
         const moveX = (event.keyCode - 38) % 2;
         const moveY = (event.keyCode - 39) % 2;
         this.handlerMoveOfUser(moveX, moveY);
@@ -140,14 +137,9 @@ class Maze extends React.Component {
     const playerCord = ReactDOM.findDOMNode(this.refs.player).offset();
     let x, y;
     // определяет следущее состояние прокрутки
-    if (IS_MOBILE) {
-      x = playerCord.left - window.innerWidth / 4;
-      y = playerCord.top - window.innerHeight / 4;
-    } else {
-      x = playerCord.left - window.innerWidth / 2;
-      y = playerCord.top - window.innerHeight / 2;
-    }
-
+    x = playerCord.left - window.innerWidth / 2;
+    y = playerCord.top - window.innerHeight / 2;
+    
     if (x < 0) x = 0;
     if (y < 0) y = 0;
 
