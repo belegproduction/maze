@@ -1,4 +1,5 @@
 import React from 'react';
+import { SIZES } from '../constants/general';
 
 class RoomList extends React.PureComponent {
   render() {
@@ -18,7 +19,13 @@ class RoomList extends React.PureComponent {
               <div className='input--title'>
                 Размер
               </div>
-              <input type="number" name="size" className="rooms--add--input input" placeholder="10" max="200" min="10" required/>
+              <select name="size" defaultValue={SIZES[0]} required className="select">
+                {SIZES.map((size) => {
+                  return (<option key={size.value} value={size.value}>
+                    { size.title }
+                  </option>);
+                })}
+              </select>
             </div>
             <div className="rooms--add--list--item rooms--add--list--item__button">
               <button type="submit" className="rooms--add--button button">

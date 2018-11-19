@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import Maze from './maze';
 import Player from './player';
 import setting from '../constants/index';
+import { pathFirst } from '../constants/player';
 
 
 export const createMathAction = createAction('CREATE_MATH', (params) => ({
@@ -49,11 +50,15 @@ export const createPlayerAction = createAction('CREATE_PLAYER', (ws, user) => {
   ws.send(JSON.stringify({
     type: 'CREATE_PLAYER',
     value: {
-      player,
+      player: {
+        ...player,
+        pathPart: pathFirst,
+      },
     },
   }));
   return {
     player,
+    pathPart: pathFirst,
   };
 });
 
@@ -64,23 +69,19 @@ export const checkPosition = (obj, grid, moveX, moveY) => {
 
 export const movePlayer = createAction('GO_PLAYER', (obj, grid, moveX, moveY, ws, hash) => {
   const cell = Maze.getCell(obj, grid, moveX, moveY);
+  const pathPart = Player.createDistance(cell, obj.width, obj.height);
   ws.send(JSON.stringify({
     type: 'GO_PLAYER',
     value: {
       player: {
         hash,
         ...cell,
+        pathPart,
       },
     },
   }));
   return {
     data: Player.move(obj, cell, moveX, moveY),
-  };
-});
-
-export const putDistanceTraveledAction = createAction('PUT_DISTANCE_TRAVELED', (obj, grid, moveX, moveY) => {
-  const cell = Maze.getCell(obj, grid, moveX, moveY);
-  return {
-    pathPart: Player.createDistance(cell, obj.width, obj.height),
+    pathPart,
   };
 });

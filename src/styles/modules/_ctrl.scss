@@ -1,0 +1,68 @@
+.ctrl {
+  position: fixed;
+
+  &--arrow {
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    border-radius: 50%;
+    background: $active-color;
+    border: 1px solid white;
+    outline: none !important;
+    margin: auto;
+    cursor: pointer;
+
+    &__top {
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    &__bottom {
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    &__left {
+      bottom: 0;
+      left: 0;
+      top: 0;
+    }
+
+    &__right {
+      bottom: 0;
+      right: 0;
+      top: 0;
+    }
+
+    @media (orientation: landscape) {
+      width: 7vw;
+      height: 7vw;
+    }
+
+    @media (orientation: portrait) {
+      width: 7vh;
+      height: 7vh;
+    }
+  }
+
+  @media (orientation: landscape) {
+    right: 30px;
+    bottom: 30px;
+    height: 37%;
+    width: 25%;
+  }
+
+  @media (orientation: portrait) {
+    right: 0;
+    left: 0;
+    margin: auto;
+    bottom: 30px;
+    height: 23%;
+    width: 41%;
+  }
+}

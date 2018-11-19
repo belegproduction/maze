@@ -3,14 +3,14 @@
 
   &--path {
     & > line {
-      @include animation-name(fadeIn);
-      @include animation-duration(1000ms);
-      stroke: rgba(187,236,243, 1);
+      animation-name: fadeIn;
+      animation-duration: 1000ms;
+      //stroke: $maze-border-color;
     }
   }
 
   &--border {
-    fill: #32517d;
+    fill: $maze-border-color;
   }
 
   &--exit {
@@ -19,19 +19,16 @@
   }
 
   rect.player {
-    z-index: 200;
+    //@include transition-property(x, y);
+    //@include transition-duration(.3s);
+    z-index: 50;
     fill: white;
     rx: 15px;
     ry: 15px;
-    z-index: 50;
-    transition-property: x, y;
-    transition-duration: .3s;
 
     &__enemy {
       z-index: 100;
-      fill: darkred;
-      rx: 0;
-      ry: 0;
+      fill: white;
     }
   }
 
@@ -44,7 +41,7 @@
 
 }
 
-@include keyframes(fadeIn){
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }

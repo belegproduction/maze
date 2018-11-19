@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import connect from 'react-redux/es/connect/connect';
 import { createPropsSelector } from 'reselect-immutable-helpers';
-import { WS_ROOMS_URL } from '../constants/general';
+import { SIZES, WS_ROOMS_URL } from '../constants/general';
 import { setRoomsToStore } from '../actions/general';
 import { getRoomsSelector } from '../selectors';
 
@@ -59,7 +59,11 @@ class RoomList extends React.PureComponent {
             {rooms.map((room) => (
               <li key={room.hash} className="rooms--list--item">
                 <span>{room.title}</span>
-                <span>{room.gridSize}</span>
+                {SIZES.map((size) => {
+                  if (parseInt(room.gridSize, 10) === parseInt(size.value, 10)) {
+                    return <span key={size.value}>{size.title}</span>;
+                  }
+                })}
                 <span>{room.users.length}</span>
                 <span>
                   <button className="button" onClick={() => this.goIntoRoom(room.hash)}>&raquo;</button>

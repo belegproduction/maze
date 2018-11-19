@@ -10,9 +10,10 @@ module.exports = async (roomHash) => {
   const mazeHash = uuid();
   const users = room.users;
   responseMazeToUser({
-    grid: pick(grid, Grids.createFields).content,
+    grid: pick(grid, Grids.createFields),
     mazeHash,
     enemies: users,
   }, roomHash);
   room.remove();
+  grid.remove();
 };

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.2",
     "compass-mixins": "^0.12.10",
     "config": "^2.0.1",
     "cross-env": "^5.2.0",
@@ -35,6 +36,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
+    "react-prop-transition": "^1.0.3",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
@@ -42,8 +44,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^4.0.0",
     "reselect-immutable-helpers": "^1.2.2",
-    "uuid": "^3.3.2",
-    "bcrypt": "^3.0.2"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

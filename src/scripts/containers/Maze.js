@@ -3,24 +3,25 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import {
   createPlayerAction,
-  putDistanceTraveledAction,
   updateEnemiesAction,
   movePlayer,
   checkPosition } from '../actions/index';
 import MazeGrid from '../components/MazeGrid';
-import Enemy from '../components/MazeEnemy';
+import Enemy from '../components/Enemy';
 import Player from '../components/MazePlayer';
 import Path from '../components/MazePath';
-import setting from '../constants/index';
+import Ctrl from '../components/Ctrl';
 import { scrollToAnimation } from '../utilities/index';
 import { createPropsSelector } from 'reselect-immutable-helpers';
 import { getGrid, getPlayer, getPath, getEnemies, getMazeHash, getCurrentUser } from '../selectors';
 import { WS_MATH_URL } from '../constants/general';
+import maze from '../constants/maze';
 
 class Maze extends React.Component {
   constructor() {
     super();
     this.canPlayerMove = true;
+    this.handlerMoveOfUser = this.handlerMoveOfUser.bind(this);
   }
   componentDidMount() {
     this.initWebSocketForRoom();
@@ -52,6 +53,7 @@ class Maze extends React.Component {
               return {
                 ...enemy,
                 ...value.player,
+                path: [value.player.pathPart],
               };
             }
             return enemy;
@@ -64,6 +66,7 @@ class Maze extends React.Component {
               return {
                 ...enemy,
                 ...value.player,
+                path: [...enemy.path, value.player.pathPart],
               };
             }
             return enemy;
@@ -80,55 +83,48 @@ class Maze extends React.Component {
       }
     };
   }
+  handlerMoveOfUser(moveX, moveY){
+    const { player, grid:{ content }, user, handlerMove } = this.props;
+    console.log({
+      moveX,
+      moveY,
+    });
+    const check = checkPosition(
+        player,
+        content,
+        moveX,
+        moveY);
+    if (check) {
+      if (check == 'exit') {
+        this.ws.send(JSON.stringify({
+          type: 'GAME_OVER',
+          value: {
+            userHash: user.hash,
+          },
+        }));
+        alert('Это победа, Вы словно Тесей!');
+        location.reload();
+      }
+      handlerMove(
+          player,
+          content,
+          moveX,
+          moveY, this.ws, user.hash);
+      this.canPlayerMove = false;
+      setTimeout(() => {
+        this._setScrollPosition();
+        this.canPlayerMove = true;
+      }, 230);
+      this._setScrollPosition();
+    }
+  }
 
   _handlerOnKeyDown() {
     document.addEventListener('keydown', (event) => {
       if (36 < event.keyCode && 41 > event.keyCode && this.canPlayerMove) {
-        const { player, grid, user } = this.props;
-
         const moveX = (event.keyCode - 38) % 2;
-
-
         const moveY = (event.keyCode - 39) % 2;
-
-        const check = checkPosition(
-            player,
-            grid,
-            moveX,
-            moveY);
-
-        if (check) {
-          if (check == 'exit') {
-            this.ws.send(JSON.stringify({
-              type: 'GAME_OVER',
-              value: {
-                userHash: user.hash,
-              },
-            }));
-            alert('Это победа, Вы словно Тесей!');
-            location.reload();
-          }
-
-          this.props.handlerMove(
-              player,
-              grid,
-              moveX,
-              moveY, this.ws, user.hash);
-
-          this.props.putDistanceTraveled(player,
-              grid,
-              moveX,
-              moveY);
-
-          // this.canPlayerMove = false;
-          // setTimeout(() => {
-          //   this._setScrollPosition();
-          //   this.canPlayerMove = true;
-          // }, 250);
-          this._setScrollPosition();
-          // this.canPlayerMove = true;
-        }
-
+        this.handlerMoveOfUser(moveX, moveY);
         event.preventDefault();
       }
     });
@@ -154,21 +150,22 @@ class Maze extends React.Component {
     return (
       <div>
         {
-          grid &&
+          grid && Object.keys(grid).length &&
             <svg id="maze" className="maze"
-              width={ setting.maze.width }
-              height={ setting.maze.height } >
-              <MazeGrid grid={ grid } />
-              <Path path={ path }/>
+              width={ maze.scale * grid.size + maze.borderWidth }
+              height={ maze.scale * grid.size + maze.borderWidth } >
+              <MazeGrid grid={ grid.content } />
               {
                 Array.isArray(enemies) && enemies.map((enemy) => (
                   <Enemy key={enemy.hash} enemy={ enemy } />
                 ))
               }
+              <Path path={ path } color={player.color}/>
               <Player player={ player }
                 ref="player" />
             </svg>
         }
+        <Ctrl handlerMoveOfUser={this.handlerMoveOfUser}/>
       </div>
     );
   }
@@ -192,9 +189,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handlerMove(obj, grid, moveX, moveY, ws, hash) {
     dispatch(movePlayer(obj, grid, moveX, moveY, ws, hash));
-  },
-  putDistanceTraveled(obj, grid, moveX, moveY) {
-    dispatch(putDistanceTraveledAction(obj, grid, moveX, moveY));
   },
 });
 

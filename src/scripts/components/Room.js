@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { COLORS } from '../constants/colors';
-import { WS_ROOM_URL } from '../constants/general';
+import { SIZES, WS_ROOM_URL } from '../constants/general';
 
 
 class Room extends React.PureComponent {
@@ -35,7 +35,11 @@ class Room extends React.PureComponent {
               enemies: enemies.filter((enemy) => (enemy.hash !== user.hash)),
               user: enemies.find((_user) => (_user.hash === user.hash)),
               mazeHash,
-              grid: JSON.parse(grid),
+              grid: {
+                title: grid.title,
+                content: JSON.parse(grid.content),
+                size: grid.size,
+              },
             }
         );
         handlerShowMaze();
@@ -77,7 +81,14 @@ class Room extends React.PureComponent {
     return (
       <div className="room">
         <h4 className="room--title">{ room.title }</h4>
-        <div className="room--size">Размер: { room.gridSize }x{ room.gridSize }</div>
+        <div className="room--size">
+          Размер:
+          {SIZES.map((size) => {
+            if (parseInt(room.gridSize, 10) === parseInt(size.value, 10)) {
+              return size.title;
+            }
+          })}
+        </div>
         <ul className="rooms--list">
           <li className="rooms--list--item rooms--list--item__header">
             <span>Игрок</span>
@@ -89,7 +100,7 @@ class Room extends React.PureComponent {
             return (<li key={_user.hash} className={`rooms--list--item ${isCurrentUser ? 'rooms--list--item__active' : ''}`}>
               <span>{_user.nickname}</span>
               <span>
-                {isCurrentUser ? <select onChange={this.changeColor} value={_user.color} className="room--select">
+                {isCurrentUser ? <select onChange={this.changeColor} value={_user.color} className="room--select select">
                   {COLORS.map((color, idx) => (
                     <option key={idx} value={color.hex} style={{color: color.hex, backgroundColor: 'black'}}>
                       { color.title }
