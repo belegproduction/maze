@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { COLORS } from '../constants/colors';
 import { SIZES, WS_ROOM_URL } from '../constants/general';
+import { showLoader, hideLoader } from '../helpers';
 
 
 class Room extends React.PureComponent {
@@ -19,9 +20,13 @@ class Room extends React.PureComponent {
   }
   initWebSocketForRoom() {
     const { room, user, handlerUpdateRoomLocal, handlerCreateMath, handlerShowMaze } = this.props;
+    showLoader();
     this.ws = new WebSocket(`${WS_ROOM_URL}/${room.hash}`, user.token);
     this.ws.onclose = () => {
       console.log('Disconnected');
+    };
+    this.ws.onopen = () => {
+      hideLoader();
     };
     this.ws.onmessage = (response) => {
       const { type, value } = JSON.parse(response.data);
@@ -68,6 +73,7 @@ class Room extends React.PureComponent {
     });
   }
   startGame() {
+    showLoader();
     this.ws.send(JSON.stringify({
       type: 'LETS_START',
     }));

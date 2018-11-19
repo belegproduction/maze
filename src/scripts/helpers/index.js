@@ -9,3 +9,11 @@ export const handlerErrors = ({ response: {data} }) => {
     timeout: 5000,
   }).show();
 };
+
+export const showLoader = () => {
+  document.body.classList.add('loader');
+};
+
+export const hideLoader = () => {
+  document.body.classList.remove('loader');
+};

@@ -1,12 +1,8 @@
 .rooms {
-  position: absolute;
-  top: 90px;
-  left: 0;
-  right: 0;
   padding: 20px;
   width: 500px;
   max-width: 100%;
-  margin: auto;
+  margin: 70px auto;
   background: rgba(0, 0, 0, 0.23);
 
   &--title {

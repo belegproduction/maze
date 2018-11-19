@@ -10,7 +10,7 @@ import RoomForm from './RoomForm';
 import Room from './Room';
 import { COLOR_DEFAULT } from '../constants/colors';
 import { createMathAction } from '../actions';
-
+import { showLoader } from '../helpers';
 
 class Rooms extends React.PureComponent {
   constructor() {
@@ -20,6 +20,7 @@ class Rooms extends React.PureComponent {
   }
   handlerSubmit(event) {
     event.preventDefault();
+    showLoader();
     const { handlerPostRoom } = this.props;
     const elements = event.currentTarget;
     const size= elements['size'].value;

@@ -1,0 +1,14 @@
+.loader {
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-image: url("./images/loader.gif");
+    background-position: center;
+    background-color: rgba(3, 3, 3, 0.36);
+  }
+}

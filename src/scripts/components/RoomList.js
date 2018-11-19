@@ -4,6 +4,7 @@ import { createPropsSelector } from 'reselect-immutable-helpers';
 import { SIZES, WS_ROOMS_URL } from '../constants/general';
 import { setRoomsToStore } from '../actions/general';
 import { getRoomsSelector } from '../selectors';
+import { showLoader, hideLoader } from '../helpers';
 
 
 class RoomList extends React.PureComponent {
@@ -21,14 +22,16 @@ class RoomList extends React.PureComponent {
   }
   initWebSocketForListRooms() {
     const { handlerSetRoom, user } = this.props;
+    showLoader();
     this.ws = new WebSocket(WS_ROOMS_URL, user.token);
     this.ws.onopen = (response) => {
-      console.log(response);
+      hideLoader();
     };
     this.ws.onclose = () => {
       console.log("Disconnected");
     };
     this.ws.onmessage = (response) => {
+      hideLoader();
       const { type, value } = JSON.parse(response.data);
       console.log(type, value);
       if (type === 'ALL_ROOMS') {
@@ -38,6 +41,7 @@ class RoomList extends React.PureComponent {
   }
   async goIntoRoom(hash) {
     const { handlerConnectToRoom } = this.props;
+    showLoader();
     await this.removeWebSocket();
     handlerConnectToRoom(hash);
   }

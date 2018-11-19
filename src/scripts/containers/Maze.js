@@ -16,6 +16,7 @@ import { createPropsSelector } from 'reselect-immutable-helpers';
 import { getGrid, getPlayer, getPath, getEnemies, getMazeHash, getCurrentUser } from '../selectors';
 import { WS_MATH_URL, IS_MOBILE } from '../constants/general';
 import maze from '../constants/maze';
+import { showLoader, hideLoader } from '../helpers';
 
 class Maze extends React.Component {
   constructor() {
@@ -38,9 +39,13 @@ class Maze extends React.Component {
   }
   initWebSocketForRoom() {
     const { mazeHash, user } = this.props;
+    showLoader();
     this.ws = new WebSocket(`${WS_MATH_URL}/${mazeHash}`, user.token);
     this.ws.onclose = () => {
       console.log("Disconnected Maze");
+    };
+    this.ws.onopen = () => {
+      hideLoader();
     };
     this.ws.onmessage = (response) => {
       const { updateEnemies, player, enemies, user } = this.props;
@@ -156,7 +161,7 @@ class Maze extends React.Component {
       <div>
         {
           grid && Object.keys(grid).length &&
-            <svg id="maze" className={`maze ${'maze___is-mobile'}`}
+            <svg id="maze" className={`maze ${IS_MOBILE ? 'maze__is-mobile' : ''}`}
               width={ maze.scale * grid.size + maze.borderWidth }
               height={ maze.scale * grid.size + maze.borderWidth } >
               <MazeGrid grid={ grid.content } />

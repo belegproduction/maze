@@ -49,6 +49,7 @@ class Menu extends React.PureComponent {
         <div className="menu--stars"></div>
         <div className="menu--stars2"></div>
         <div className="menu--stars3"></div>
+        
         <meta name="viewport" content="width=800px" />
         {user.hash ?
           <Fragment>
