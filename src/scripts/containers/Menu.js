@@ -18,7 +18,6 @@ class Menu extends React.PureComponent {
   onSubmitAuthorization(data) {
     const { handlerLogin, handlerRegistration, typeForm } = this.props;
     const { nickname, password } = data;
-    console.log(typeForm);
     if (typeForm === SIGN_IN) {
       handlerLogin({
         nickname,

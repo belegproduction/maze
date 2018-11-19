@@ -133,10 +133,15 @@ class Maze extends React.Component {
   _setScrollPosition() {
     // возвращает координаты обьекта с учетом прокрутки страницы
     const playerCord = ReactDOM.findDOMNode(this.refs.player).offset();
-
+    let x, y;
     // определяет следущее состояние прокрутки
-    let x = playerCord.left - window.innerWidth / 2;
-    let y = playerCord.top - window.innerHeight / 2;
+    if (window.innerWidth > 1000) {
+      x = playerCord.left - window.innerWidth / 2;
+      y = playerCord.top - window.innerHeight / 2;
+    } else {
+      x = playerCord.left - window.innerWidth / 4;
+      y = playerCord.top - window.innerHeight / 4;
+    }
 
     if (x < 0) x = 0;
     if (y < 0) y = 0;
