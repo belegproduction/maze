@@ -11,7 +11,7 @@ export const WS_MATH_URL = `${location.href.includes('https') ? 'wss' : 'ws'}://
 
 export const SIZES = [
   {
-    title: 'Малинки',
+    title: 'Малый',
     value: 15,
   },
   {
