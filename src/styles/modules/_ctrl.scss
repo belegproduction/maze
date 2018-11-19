@@ -4,8 +4,8 @@
 
   &--arrow {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     color: white;
     font-size: 40px;
     font-weight: bold;
@@ -49,8 +49,8 @@
   @media (orientation: landscape) {
     right: 30px;
     bottom: 30px;
-    height: 60%;
-    width: 40%;
+    height: 55%;
+    width: 35%;
   }
 
   @media (orientation: portrait) {
@@ -60,9 +60,5 @@
     bottom: 30px;
     height: 35%;
     width: 65%;
-  }
-
-  @media screen and (min-width: 1000px) {
-    display: none;
   }
 }

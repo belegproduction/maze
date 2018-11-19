@@ -1,3 +1,4 @@
+import mobile from 'is-mobile';
 
 export const POST_GRID_URL = '/api/grids';
 
@@ -47,3 +48,5 @@ export const DIRECTION_MOVE = {
     moveY: 0,
   },
 };
+
+export const IS_MOBILE = mobile();

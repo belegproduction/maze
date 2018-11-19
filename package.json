@@ -22,6 +22,7 @@
     "cross-env": "^5.2.0",
     "dotenv": "^6.1.0",
     "immutable": "^4.0.0-rc.12",
+    "is-mobile": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
     "keymirror": "^0.1.1",
     "koa": "^2.6.1",

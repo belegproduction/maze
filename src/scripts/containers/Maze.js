@@ -14,7 +14,7 @@ import Ctrl from '../components/Ctrl';
 import { scrollToAnimation } from '../utilities/index';
 import { createPropsSelector } from 'reselect-immutable-helpers';
 import { getGrid, getPlayer, getPath, getEnemies, getMazeHash, getCurrentUser } from '../selectors';
-import { WS_MATH_URL } from '../constants/general';
+import { WS_MATH_URL, IS_MOBILE } from '../constants/general';
 import maze from '../constants/maze';
 
 class Maze extends React.Component {
@@ -135,12 +135,12 @@ class Maze extends React.Component {
     const playerCord = ReactDOM.findDOMNode(this.refs.player).offset();
     let x, y;
     // определяет следущее состояние прокрутки
-    if (window.innerWidth > 1000) {
-      x = playerCord.left - window.innerWidth / 2;
-      y = playerCord.top - window.innerHeight / 2;
-    } else {
+    if (IS_MOBILE) {
       x = playerCord.left - window.innerWidth / 4;
       y = playerCord.top - window.innerHeight / 4;
+    } else {
+      x = playerCord.left - window.innerWidth / 2;
+      y = playerCord.top - window.innerHeight / 2;
     }
 
     if (x < 0) x = 0;
@@ -156,7 +156,7 @@ class Maze extends React.Component {
       <div>
         {
           grid && Object.keys(grid).length &&
-            <svg id="maze" className="maze"
+            <svg id="maze" className={`maze ${'maze___is-mobile'}`}
               width={ maze.scale * grid.size + maze.borderWidth }
               height={ maze.scale * grid.size + maze.borderWidth } >
               <MazeGrid grid={ grid.content } />
@@ -170,8 +170,8 @@ class Maze extends React.Component {
                 ref="player" />
             </svg>
         }
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <Ctrl handlerMoveOfUser={this.handlerMoveOfUser}/>
+        <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no" />
+        {IS_MOBILE && <Ctrl handlerMoveOfUser={this.handlerMoveOfUser}/>}
       </div>
     );
   }
