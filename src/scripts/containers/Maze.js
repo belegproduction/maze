@@ -165,7 +165,7 @@ class Maze extends React.Component {
                 ref="player" />
             </svg>
         }
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <Ctrl handlerMoveOfUser={this.handlerMoveOfUser}/>
       </div>
     );
