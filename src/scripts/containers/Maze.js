@@ -167,7 +167,11 @@ class Maze extends React.Component {
           grid && Object.keys(grid).length &&
             <svg id="maze" className={`maze ${IS_MOBILE ? 'maze__is-mobile' : ''}`}
               width={ maze.scale * grid.size + maze.borderWidth }
-              height={ maze.scale * grid.size + maze.borderWidth } >
+              height={ maze.scale * grid.size + maze.borderWidth }
+              style={{
+                marginRight: window.innerWidth / 2,
+                marginBottom: window.innerHeight / 2,
+              }}>
               <MazeGrid grid={ grid.content } />
               {
                 Array.isArray(enemies) && enemies.map((enemy) => (
