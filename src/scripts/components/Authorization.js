@@ -25,14 +25,14 @@ class Authorization extends React.PureComponent {
           {typeForm === SIGN_UP ? 'Регистрация' : 'Авторизация'}
         </h5>
         <form method="POST" onSubmit={this.onSubmit}>
-          <div className='input--title'>
+          <label className='input--title' htmlFor="authorization-nickname">
             Введите никнейм
-          </div>
-          <input type="text" name="nickname" className="authorization--input input" placeholder="Тесей"/>
-          <div className='input--title'>
+          </label>
+          <input id="authorization-nickname" type="text" name="nickname" className="authorization--input input" placeholder="Тесей"/>
+          <label className='input--title' htmlFor="authorization-password">
             Введите пароль
-          </div>
-          <input type="password" name="password" className="authorization--input input"/>
+          </label>
+          <input id="authorization-password" type="password" name="password" className="authorization--input input"/>
           <button type="submit" className="authorization--button button">
             Отправить
           </button>
