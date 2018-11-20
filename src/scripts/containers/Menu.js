@@ -46,7 +46,7 @@ class Menu extends React.PureComponent {
 
     return (
       <div className="menu" style={{minHeight: window.innerHeight}}>
-        <meta name="viewport" content="width=800px" />
+        <meta name="viewport" content="width=device-width initial-scale=1" />
         <div className="menu--stars"></div>
         <div className="menu--stars2"></div>
         <div className="menu--stars3"></div>

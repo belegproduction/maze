@@ -4,7 +4,7 @@
     "name": "Maze",
     "scope": "/",
     "display": "fullscreen",
-    "start_url": "https://maze-fun.herokuapp.com/",
+    "start_url": "/",
     "short_name": "Maze",
     "theme_color": "transparent",
     "description": "",
