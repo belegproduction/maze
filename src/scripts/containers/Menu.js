@@ -45,7 +45,7 @@ class Menu extends React.PureComponent {
     const { typeForm, user, handlerLogout, handlerShowMaze } = this.props;
 
     return (
-      <div className="menu">
+      <div className="menu" style={{height: window.innerHeight}}>
         <div className="menu--stars"></div>
         <div className="menu--stars2"></div>
         <div className="menu--stars3"></div>

@@ -17,3 +17,11 @@ export const showLoader = () => {
 export const hideLoader = () => {
   document.body.classList.remove('loader');
 };
+
+export const overHiddenBody = () => {
+  document.body.style.overflow = 'hidden';
+};
+
+export const overVissibleBody = () => {
+  document.body.style.overflow = '';
+};

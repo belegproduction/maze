@@ -16,18 +16,22 @@ import { createPropsSelector } from 'reselect-immutable-helpers';
 import { getGrid, getPlayer, getPath, getEnemies, getMazeHash, getCurrentUser } from '../selectors';
 import { WS_MATH_URL, IS_MOBILE } from '../constants/general';
 import maze from '../constants/maze';
-import { showLoader, hideLoader } from '../helpers';
+import { showLoader, hideLoader, overHiddenBody, overVissibleBody } from '../helpers';
 
 class Maze extends React.Component {
   constructor() {
     super();
     this.canPlayerMove = true;
     this.handlerMoveOfUser = this.handlerMoveOfUser.bind(this);
+    overHiddenBody();
   }
   componentDidMount() {
     this.initWebSocketForRoom();
     this._handlerOnKeyDown();
     this.handlerCreatePlayer();
+  }
+  componentWillUnmount() {
+    overVissibleBody();
   }
   handlerCreatePlayer() {
     const { createPlayer, user } = this.props;
@@ -88,7 +92,7 @@ class Maze extends React.Component {
       }
     };
   }
-  handlerMoveOfUser(moveX, moveY){
+  handlerMoveOfUser(moveX, moveY) {
     if (this.canPlayerMove) {
       const { player, grid:{ content }, user, handlerMove } = this.props;
       const check = checkPosition(
@@ -136,13 +140,21 @@ class Maze extends React.Component {
     // возвращает координаты обьекта с учетом прокрутки страницы
     const playerCord = ReactDOM.findDOMNode(this.refs.player).offset();
     let x, y;
-    // определяет следущее состояние прокрутки
-    x = playerCord.left - window.innerWidth / 2;
-    y = playerCord.top - window.innerHeight / 2;
-    
+    if (IS_MOBILE) {
+      if (window.innerWidth < window.innerHeight) {
+        x = playerCord.left - window.innerWidth / 2;
+        y = playerCord.top - window.innerHeight / 4;
+      } else {
+        x = playerCord.left - window.innerWidth / 4;
+        y = playerCord.top - window.innerHeight / 2;
+      }
+    } else {
+      // определяет следущее состояние прокрутки
+      x = playerCord.left - window.innerWidth / 2;
+      y = playerCord.top - window.innerHeight / 2;
+    }
     if (x < 0) x = 0;
     if (y < 0) y = 0;
-
     scrollToAnimation(x, y, 20);
   }
 
@@ -167,7 +179,7 @@ class Maze extends React.Component {
                 ref="player" />
             </svg>
         }
-        <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=no" />
         {IS_MOBILE && <Ctrl handlerMoveOfUser={this.handlerMoveOfUser}/>}
       </div>
     );
