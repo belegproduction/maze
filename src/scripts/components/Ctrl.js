@@ -9,7 +9,6 @@ class Ctrl extends React.PureComponent {
   handlerClick(event) {
     const { handlerMoveOfUser } = this.props;
     const direction = event.currentTarget.dataset.direction;
-    console.log(direction);
     if (DIRECTION_MOVE[direction]) {
       handlerMoveOfUser(DIRECTION_MOVE[direction].moveX, DIRECTION_MOVE[direction].moveY);
     }

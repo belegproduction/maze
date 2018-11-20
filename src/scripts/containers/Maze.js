@@ -54,7 +54,6 @@ class Maze extends React.Component {
     this.ws.onmessage = (response) => {
       const { updateEnemies, player, enemies, user } = this.props;
       const { type, value } = JSON.parse(response.data);
-      console.log(type, value);
       if (type === 'CREATE_PLAYER') {
         if (value && user.hash !== value.player.hash) {
           updateEnemies(enemies.map((enemy) => {

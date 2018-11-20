@@ -1,10 +1,13 @@
 // Webpack v4
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const pathToIndexHtml = require.resolve('./src/template/index.html');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: {main: './src/scripts/index.js'},
+  entry: {
+    main: './src/scripts/index.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
@@ -42,21 +45,6 @@ module.exports = {
           },
         ],
       },
-      {
-        test: pathToIndexHtml,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            },
-          },
-          'extract-loader',
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
     ],
   },
   plugins: [
@@ -66,5 +54,19 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new CopyWebpackPlugin([
+      {
+        from: './src/images',
+        to: './images',
+      },
+      {
+        from: './src/template',
+        to: './',
+      },
+      {
+        from: './manifest.json',
+        to: './',
+      },
+    ]),
   ],
 };

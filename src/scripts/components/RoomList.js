@@ -33,7 +33,6 @@ class RoomList extends React.PureComponent {
     this.ws.onmessage = (response) => {
       hideLoader();
       const { type, value } = JSON.parse(response.data);
-      console.log(type, value);
       if (type === 'ALL_ROOMS') {
         handlerSetRoom(value);
       }

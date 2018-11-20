@@ -10,17 +10,10 @@ module.exports = {
     }
 
     ctx.websocket.on('close', () => {
-      // console.log('websocket closed');
-      // global.clientsMaze.forEach((client) => {
-      //   if (client.readyState !== ctx.websocket.CLOSED ) {
-      //     client.send(JSON.stringify({
-      //       type: 'CLOSE',
-      //     }));
-      //   }
-      // });
-      // grid = null;
-      // global.clientsMaze = [];
-      // players = [];
+      if (Array.isArray(global.clientsOfRoom[mazeHash])) {
+        global.clientsOfRoom[mazeHash] = global.clientsOfRoom[mazeHash].filter((client) => (client.readyState === client.OPEN));
+      }
+      console.log('websocket closed');
     });
     ctx.websocket.on('message', (message) => {
       const payload = JSON.parse(message);

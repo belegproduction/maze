@@ -46,10 +46,10 @@ class Menu extends React.PureComponent {
 
     return (
       <div className="menu" style={{minHeight: window.innerHeight}}>
+        <meta name="viewport" content="width=800px" />
         <div className="menu--stars"></div>
         <div className="menu--stars2"></div>
         <div className="menu--stars3"></div>
-        
         {user.hash ?
           <Fragment>
             <Header nickname={user.nickname} handlerLogout={handlerLogout}/>

@@ -10,7 +10,6 @@ module.exports = {
     ctx.websocket.send(pushRooms(rooms));
     ctx.websocket.on('close', () => {
       global.clients  = global.clients.filter((client) => (client.ws.readyState === client.ws.OPEN));
-      console.log('close', global.clients.length, ctx.state.user.nickname);
     });
   }
 };
