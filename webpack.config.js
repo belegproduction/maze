@@ -1,8 +1,9 @@
 // Webpack v4
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -21,7 +22,7 @@ module.exports = {
           'source-map-loader',
           'babel-loader',
         ],
-        enforce: "pre"
+        enforce: 'pre',
       },
       {
         test: /\.scss$/,
@@ -68,5 +69,6 @@ module.exports = {
         to: './',
       },
     ]),
+    new CompressionPlugin(),
   ],
 };

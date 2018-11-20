@@ -2,7 +2,7 @@
     "dir": "ltr",
     "lang": "ru",
     "name": "Maze",
-    "scope": "/dist/",
+    "scope": "/",
     "display": "fullscreen",
     "start_url": "https://maze-fun.herokuapp.com/",
     "short_name": "Maze",
