@@ -7,6 +7,8 @@ const Grid = require('../../modules/grids/models');
 
 module.exports = async (roomHash, userHash) => {
   const room = await Room.findOne({ hash: roomHash });
+  if (!room) return;
+  
   if (room.userHash === userHash) {
     const grid = Grid.findOne({ hash: room.gridHash });
     if (grid) {

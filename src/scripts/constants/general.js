@@ -25,7 +25,7 @@ export const SIZES = [
   },
   {
     title: 'Огромный',
-    value: 90,
+    value: 80,
   },
 ];
 
