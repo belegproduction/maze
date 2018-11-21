@@ -17,6 +17,7 @@ import { getGrid, getPlayer, getPath, getEnemies, getMazeHash, getCurrentUser } 
 import { WS_MATH_URL, IS_MOBILE } from '../constants/general';
 import maze from '../constants/maze';
 import { showLoader, hideLoader, overHiddenBody, overVissibleBody } from '../helpers';
+import playerDefault from '../constants/player';
 
 class Maze extends React.Component {
   constructor() {
@@ -74,6 +75,7 @@ class Maze extends React.Component {
           updateEnemies(enemies.map((enemy) => {
             if (enemy.hash === value.player.hash) {
               return {
+                ...playerDefault,
                 ...enemy,
                 ...value.player,
                 path: Array.isArray(enemy.path) ? [...enemy.path, value.player.pathPart] : [value.player.pathPart],
