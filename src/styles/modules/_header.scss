@@ -12,9 +12,17 @@
     color: #FFF;
     text-shadow: 7px 6px 12px #38495a;
     opacity: .7;
+
+    @include mobile {
+      font-size: 18px;
+    }
   }
 
   .button {
     margin-left: 30px;
+
+    @include mobile {
+      float: right;
+    }
   }
 }

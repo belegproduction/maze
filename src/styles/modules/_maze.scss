@@ -43,6 +43,9 @@
     margin: 0 400px 400px 0;
   }
 
+  * {
+    touch-action: none;
+  }
 }
 
 @keyframes fadeIn {

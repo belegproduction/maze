@@ -11,4 +11,12 @@
     background-position: center;
     background-color: rgba(3, 3, 3, 0.36);
   }
+
+  &--title {
+    padding: 30px 10px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+  }
 }
