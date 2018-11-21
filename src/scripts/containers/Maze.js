@@ -25,9 +25,9 @@ class Maze extends React.Component {
     this.handlerMoveOfUser = this.handlerMoveOfUser.bind(this);
     overHiddenBody();
     document.head.querySelector('[name="viewport"]').remove();
-    window.screenTop = 0;
   }
   componentDidMount() {
+    scrollToAnimation(0, 0);
     this.initWebSocketForRoom();
     this._handlerOnKeyDown();
     this.handlerCreatePlayer();

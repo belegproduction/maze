@@ -21,6 +21,7 @@
     text-shadow: 7px 6px 12px #38495a;
 
     @include mobile {
+      margin-bottom: 15px;
       font-size: 28px;
     }
   }
