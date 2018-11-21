@@ -10,10 +10,18 @@ module.exports = {
     }
 
     ctx.websocket.on('close', () => {
-      // if (Array.isArray(global.clientsOfRoom[mazeHash])) {
-      //   global.clientsOfRoom[mazeHash] = global.clientsOfRoom[mazeHash].filter((client) => (client.readyState === client.OPEN));
-      // }
-      // console.log('websocket closed');
+      if (Array.isArray(global.clientsMaze[mazeHash])) {
+        global.clientsMaze[mazeHash].forEach((client) => {
+          if (client.readyState === client.OPEN) {
+            client.send(JSON.stringify({
+              type: 'CLOSE',
+            }));
+            client.close();
+          }
+        });
+        delete global.clientsMaze[mazeHash];
+      }
+      console.log('GAME_OVER!', mazeHash);
     });
     ctx.websocket.on('message', (message) => {
       const payload = JSON.parse(message);
