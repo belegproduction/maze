@@ -76,7 +76,7 @@ class Maze extends React.Component {
               return {
                 ...enemy,
                 ...value.player,
-                path: [...enemy.path, value.player.pathPart],
+                path: Array.isArray(enemy.path) ? [...enemy.path, value.player.pathPart] : [value.player.pathPart],
               };
             }
             return enemy;
