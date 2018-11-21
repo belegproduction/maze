@@ -42,7 +42,7 @@ class RoomList extends React.PureComponent {
     const { handlerConnectToRoom } = this.props;
     showLoader();
     await this.removeWebSocket();
-    handlerConnectToRoom(hash);
+    this.props.handlerConnectToRoom(hash);
   }
   render() {
     const { rooms, handlerConnectToRoom } = this.props;
